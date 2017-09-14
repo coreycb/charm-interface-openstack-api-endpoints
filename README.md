@@ -26,8 +26,8 @@ from charmhelpers.core.hookenv import log, status_set, unit_get
 from charms.reactive import when, when_not
 
 
-@when('loadbalancer.connected')
-def setup_loadbalancer(lb):
+@when('public-backend.connected')
+def setup_public-backend(lb):
     lb.configure(service_type='nova',
                  frontend_port=8774,
                  backend_port=8764,
@@ -39,8 +39,8 @@ def setup_loadbalancer(lb):
                  backend_ip=10.10.10.2,
                  check_type='http')
 
-@when('loadbalancer.available')
-def use_loadbalancer(lb):
+@when('public-backend.available')
+def use_public-backend(lb):
     log("nova-api endpoint data:")
 
     # data provided by our charm layer
@@ -63,12 +63,12 @@ def use_loadbalancer(lb):
     # data provided by OpenStack Load Balancer
     log("  frontend ip    = %s" % lb.frontend_ip("nova-placement-api"))
 
-@when('loadbalancer.connected')
-@when_not('loadbalancer.available')
-def waiting_loadbalancer(lb):
+@when('public-backend.connected')
+@when_not('public-backend.available')
+def waiting_public-backend(lb):
     status_set('waiting', 'Waiting for OpenStack Load Balancer')
 
-@when('loadbalancer.connected', 'loadbalancer.available')
+@when('public-backend.connected', 'public-backend.available')
 def unit_ready(lb):
     status_set('active', 'Unit is ready')
 ```
