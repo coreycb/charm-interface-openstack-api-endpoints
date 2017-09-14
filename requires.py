@@ -89,9 +89,10 @@ class OpenStackLoadBalancerRequires(RelationBase):
         Check if required data is complete.
         """
         data = {}
-        for service_type in self.get_service_types():
-            key = service_type + '_frontend_ip'
-            data[key] = self.get_remote(key)
+        if self.get_service_types():
+            for service_type in self.get_service_types():
+               key = service_type + '_frontend_ip'
+               data[key] = self.get_remote(key)
         if data and all(data.values()):
-            return True
+           return True
         return False
