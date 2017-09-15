@@ -31,7 +31,7 @@ class OpenStackLoadBalancerRequires(RelationBase):
             service_type + '_frontend_port': frontend_port,
             service_type + '_backend_ip': backend_ip,
             service_type + '_backend_port': backend_port,
-            service_type + '_backend_check_type': backend_check_type,
+            service_type + '_check_type': check_type,
         }
         self.set_service_type(service_type)
         self.set_remote(**relation_info)
@@ -78,11 +78,11 @@ class OpenStackLoadBalancerRequires(RelationBase):
         """
         return self.get_local(service_type + '_backend_port')
 
-    def backend_check_type(self, service_type):
+    def check_type(self, service_type):
         """
-        Return a backend check type for a configured endpoint.
+        Return a check type for a configured endpoint.
         """
-        return self.get_local(service_type + '_backend_check_type')
+        return self.get_local(service_type + '_check_type')
 
     def data_complete(self):
         """

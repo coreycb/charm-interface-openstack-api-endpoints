@@ -17,7 +17,7 @@ The interface layer will set the following states, as appropriate:
     * `frontend_port(service_type)`
     * `backend_ip(service_type)`
     * `backend_port(service_type)`
-    * `backend_check_type(service_type)`
+    * `check_type(service_type)`
 
 For example:
 
